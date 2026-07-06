@@ -12,21 +12,21 @@
 ### 制造业 PMI
 
 - 数据源：`akshare.macro_china_pmi()`
-- 默认区间：2008 年 1 月至最新月份
+- 完整区间：2006 年 1 月至最新月份；2005 年数据用于计算首年同比
 - 输出：`manufacturing_pmi_monthly.csv`
 - 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
 
 ### GDP 同比
 
 - 数据源：`akshare.macro_china_gdp()`
-- 默认区间：2008 年第 1 季度至最新季度
+- 完整区间：2006 年第 1 季度至最新季度
 - 输出：`gdp_yoy_quarterly.csv`
 - 季度缺口处理：缺失季度使用前值填充，并用 `is_filled` 标记
 
 ### M1、M2 月度同比
 
-- 数据源：`akshare.macro_china_money_supply()`
-- 默认区间：2008 年 1 月至最新月份
+- 数据源：`akshare.macro_china_supply_of_money()`
+- 完整区间：1996 年 12 月至最新月份；更早数据仅按年披露，不纳入连续月频 CSV
 - 输出：`money_supply_yoy_monthly.csv`
 - 月度缺口处理：缺失月份的 M1、M2 同比使用前值填充，并用 `is_filled` 标记
 

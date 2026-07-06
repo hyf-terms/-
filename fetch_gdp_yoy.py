@@ -20,7 +20,7 @@ def parse_quarter_label(label: object) -> tuple[pd.Timestamp, int] | tuple[pd.Na
     return pd.Timestamp(year=year, month=quarter * 3, day=1), quarter
 
 
-def fetch_gdp_yoy(start: str = "2008-01-01") -> pd.DataFrame:
+def fetch_gdp_yoy(start: str | None = None) -> pd.DataFrame:
     raw = ak.macro_china_gdp().rename(
         columns={
             "季度": "quarter_label",
@@ -33,7 +33,8 @@ def fetch_gdp_yoy(start: str = "2008-01-01") -> pd.DataFrame:
     data["quarter"] = [item[1] for item in parsed]
     data["gdp_yoy_growth_pct"] = pd.to_numeric(data["gdp_yoy_growth_pct"], errors="coerce")
     data = data.dropna(subset=["quarter_end_month"]).sort_values("quarter_end_month")
-    data = data[data["quarter_end_month"] >= pd.Timestamp(start)]
+    if start:
+        data = data[data["quarter_end_month"] >= pd.Timestamp(start)]
     if data.empty:
         raise RuntimeError("No GDP year-on-year data returned for the requested range.")
 
@@ -60,7 +61,7 @@ def fetch_gdp_yoy(start: str = "2008-01-01") -> pd.DataFrame:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Fetch China GDP year-on-year quarterly data from AKShare.")
-    parser.add_argument("--start", default="2008-01-01", help="Start date, default: 2008-01-01")
+    parser.add_argument("--start", default=None, help="Optional start date; default uses all available quarters")
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help=f"CSV output path, default: {DEFAULT_OUTPUT}")
     args = parser.parse_args()
 
