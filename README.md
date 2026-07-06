@@ -1,6 +1,6 @@
 # A股相关宏观数据爬取
 
-从 AKShare 抓取东方财富宏观数据中的工业增加值、制造业 PMI 和 GDP 同比数据，并导出 CSV。
+从 AKShare 抓取东方财富宏观数据中的工业增加值、制造业 PMI、GDP 同比以及 M1/M2 同比数据，并导出 CSV。
 
 ## 数据
 
@@ -23,6 +23,13 @@
 - 输出：`gdp_yoy_quarterly.csv`
 - 季度缺口处理：缺失季度使用前值填充，并用 `is_filled` 标记
 
+### M1、M2 月度同比
+
+- 数据源：`akshare.macro_china_money_supply()`
+- 默认区间：2008 年 1 月至最新月份
+- 输出：`money_supply_yoy_monthly.csv`
+- 月度缺口处理：缺失月份的 M1、M2 同比使用前值填充，并用 `is_filled` 标记
+
 ## 运行
 
 ```powershell
@@ -30,6 +37,7 @@ python -m pip install -r requirements.txt
 python fetch_industrial_value.py
 python fetch_manufacturing_pmi.py
 python fetch_gdp_yoy.py
+python fetch_money_supply_yoy.py
 ```
 
 默认输出：
@@ -38,6 +46,7 @@ python fetch_gdp_yoy.py
 C:\Users\hyf\Desktop\宏观数据爬取\industrial_value_growth_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\manufacturing_pmi_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\gdp_yoy_quarterly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\money_supply_yoy_monthly.csv
 ```
 
 可指定起始月份和输出路径：
