@@ -1,6 +1,6 @@
 # A股相关宏观数据爬取
 
-从 AKShare 抓取东方财富宏观数据中的工业增加值、制造业 PMI、GDP 同比以及 M1/M2 同比数据，并导出 CSV。
+抓取工业增加值、制造业 PMI、GDP、货币供应量、社融及物价指标，并导出 CSV。
 
 ## 数据
 
@@ -30,6 +30,20 @@
 - 输出：`money_supply_yoy_monthly.csv`
 - 月度缺口处理：缺失月份的 M1、M2 同比使用前值填充，并用 `is_filled` 标记
 
+### 社会融资规模增量
+
+- 主接口：`akshare.macro_china_shrzgm()`
+- 备用源：AKShare 的商务部接口不可用时，使用央行口径公开历史序列
+- 完整区间：2002 年 1 月起
+- 输出：`social_financing_monthly.csv`，单位为亿元人民币
+
+### CPI、PPI 同比
+
+- 数据源：金十历史接口与东方财富最新接口合并，兼顾早期覆盖和最新数据
+- 完整区间：CPI 从 1986 年 1 月起，PPI 从 1995 年 7 月起
+- 输出：`cpi_yoy_monthly.csv`、`ppi_yoy_monthly.csv`
+- `release_date` 在金十历史区间为公布日期；东方财富补充区间未提供该字段，留空处理
+
 ## 运行
 
 ```powershell
@@ -38,6 +52,9 @@ python fetch_industrial_value.py
 python fetch_manufacturing_pmi.py
 python fetch_gdp_yoy.py
 python fetch_money_supply_yoy.py
+python fetch_social_financing.py
+python fetch_cpi_yoy.py
+python fetch_ppi_yoy.py
 ```
 
 默认输出：
@@ -47,6 +64,9 @@ C:\Users\hyf\Desktop\宏观数据爬取\industrial_value_growth_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\manufacturing_pmi_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\gdp_yoy_quarterly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\money_supply_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\social_financing_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\cpi_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\ppi_yoy_monthly.csv
 ```
 
 可指定起始月份和输出路径：
