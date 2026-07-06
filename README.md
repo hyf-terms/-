@@ -44,6 +44,13 @@
 - 输出：`cpi_yoy_monthly.csv`、`ppi_yoy_monthly.csv`
 - `release_date` 在金十历史区间为公布日期；东方财富补充区间未提供该字段，留空处理
 
+### 房地产投资与商品房销售面积同比
+
+- 数据源：`akshare.macro_china_nbs_nation()`；访问受限时使用 AKShare 内置指标映射 167/170
+- 指标：房地产开发投资额累计同比、商品房销售面积累计同比
+- 输出：`real_estate_development_investment_yoy_monthly.csv`、`commercial_housing_sales_area_yoy_monthly.csv`
+- 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
+
 ## 运行
 
 ```powershell
@@ -55,6 +62,7 @@ python fetch_money_supply_yoy.py
 python fetch_social_financing.py
 python fetch_cpi_yoy.py
 python fetch_ppi_yoy.py
+python fetch_real_estate_indicators.py
 ```
 
 默认输出：
@@ -67,6 +75,8 @@ C:\Users\hyf\Desktop\宏观数据爬取\money_supply_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\social_financing_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\cpi_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\ppi_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\real_estate_development_investment_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\commercial_housing_sales_area_yoy_monthly.csv
 ```
 
 可指定起始月份和输出路径：
