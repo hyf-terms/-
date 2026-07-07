@@ -65,6 +65,13 @@
 - 输出：`lpr_monthly.csv`
 - 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记；为保障字段完整性，从 1 年期和 5 年期均有数据的月份开始
 
+### USD/CNY 官方中间价
+
+- 数据源：`akshare.currency_boc_safe()`
+- 指标：人民币兑美元官方中间价；原始美元列为 100 美元兑人民币，另换算为 1 美元兑人民币
+- 输出：`usd_cny_mid_daily.csv`
+- 日度缺口处理：生成连续自然日序列，周末和节假日等无公布日期使用前值填充，并用 `is_filled` 标记
+
 ## 运行
 
 ```powershell
@@ -79,6 +86,7 @@ python fetch_ppi_yoy.py
 python fetch_real_estate_indicators.py
 python fetch_export_yoy.py
 python fetch_lpr.py
+python fetch_usd_cny_mid.py
 ```
 
 默认输出：
@@ -95,6 +103,7 @@ C:\Users\hyf\Desktop\宏观数据爬取\real_estate_development_investment_yoy_m
 C:\Users\hyf\Desktop\宏观数据爬取\commercial_housing_sales_area_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\export_amount_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\lpr_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\usd_cny_mid_daily.csv
 ```
 
 可指定起始月份和输出路径：
