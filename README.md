@@ -51,6 +51,20 @@
 - 输出：`real_estate_development_investment_yoy_monthly.csv`、`commercial_housing_sales_area_yoy_monthly.csv`
 - 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
 
+### 出口金额同比
+
+- 数据源：`akshare.macro_china_hgjck()`
+- 指标：当月出口额、当月出口额同比增长；出口额按海关接口原始数值保留，列名标注为千美元
+- 输出：`export_amount_yoy_monthly.csv`
+- 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
+
+### LPR
+
+- 数据源：`akshare.macro_china_lpr()`
+- 指标：1 年期 LPR、5 年期以上 LPR
+- 输出：`lpr_monthly.csv`
+- 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记；为保障字段完整性，从 1 年期和 5 年期均有数据的月份开始
+
 ## 运行
 
 ```powershell
@@ -63,6 +77,8 @@ python fetch_social_financing.py
 python fetch_cpi_yoy.py
 python fetch_ppi_yoy.py
 python fetch_real_estate_indicators.py
+python fetch_export_yoy.py
+python fetch_lpr.py
 ```
 
 默认输出：
@@ -77,6 +93,8 @@ C:\Users\hyf\Desktop\宏观数据爬取\cpi_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\ppi_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\real_estate_development_investment_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\commercial_housing_sales_area_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\export_amount_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\lpr_monthly.csv
 ```
 
 可指定起始月份和输出路径：
