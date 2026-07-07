@@ -8,9 +8,10 @@ import pandas as pd
 
 
 DEFAULT_OUTPUT = Path.home() / "Desktop" / "宏观数据爬取" / "usd_cny_mid_daily.csv"
+DEFAULT_START = "2019-01-01"
 
 
-def fetch_usd_cny_mid(start: str | None = None, years: int = 5) -> pd.DataFrame:
+def fetch_usd_cny_mid(start: str | None = DEFAULT_START, years: int | None = None) -> pd.DataFrame:
     raw = ak.currency_boc_safe()
     data = raw.rename(columns={"日期": "date", "美元": "usd_cny_mid_per_100_usd"}).copy()
     data["date"] = pd.to_datetime(data["date"], errors="coerce")
@@ -26,7 +27,7 @@ def fetch_usd_cny_mid(start: str | None = None, years: int = 5) -> pd.DataFrame:
         raise RuntimeError("No USD/CNY official central parity data returned.")
 
     end_date = data["date"].max()
-    start_date = pd.Timestamp(start) if start else end_date - pd.DateOffset(years=years)
+    start_date = pd.Timestamp(start) if start else end_date - pd.DateOffset(years=years or 5)
     data = data[data["date"] >= start_date]
     if data.empty:
         raise RuntimeError("No USD/CNY official central parity data returned for the requested range.")
@@ -56,12 +57,16 @@ def fetch_usd_cny_mid(start: str | None = None, years: int = 5) -> pd.DataFrame:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Fetch official USD/CNY central parity data.")
-    parser.add_argument("--start", default=None, help="Optional start date, for example: 2021-07-07")
+    parser.add_argument(
+        "--start",
+        default=DEFAULT_START,
+        help=f"Start date, default: {DEFAULT_START}",
+    )
     parser.add_argument(
         "--years",
         type=int,
-        default=5,
-        help="Lookback years when --start is not provided, default: 5",
+        default=None,
+        help="Lookback years when --start is empty, for example: --start '' --years 5",
     )
     parser.add_argument(
         "--output",
