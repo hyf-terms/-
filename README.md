@@ -89,6 +89,38 @@
 - 输出：`retail_sales_yoy_monthly.csv`
 - 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
 
+### 进口金额同比与贸易差额
+
+- 数据源：`akshare.macro_china_hgjck()`
+- 指标：当月进口额、当月进口额同比、当月出口额、贸易差额；进出口金额按海关接口原始数值保留，列名标注为千美元
+- 完整区间：2008 年 1 月至最新月份
+- 输出：`import_amount_yoy_monthly.csv`、`trade_balance_monthly.csv`
+- 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
+
+### 财政收入同比
+
+- 数据源：`akshare.macro_china_czsr()`
+- 指标：财政收入当月值、当月同比、累计值、累计同比；当前稳定 AKShare/东方财富接口未暴露财政支出
+- 完整区间：2008 年 1 月至最新月份
+- 输出：`fiscal_revenue_expenditure_yoy_monthly.csv`
+- 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
+
+### SHIBOR
+
+- 数据源：`akshare.macro_china_shibor_all()`
+- 指标：隔夜、1 周、2 周、1 月、3 月、6 月、9 月、1 年 SHIBOR
+- 完整区间：2017 年 3 月 17 日至最新日期
+- 输出：`shibor_daily.csv`
+- 日度缺口处理：生成连续自然日序列，周末和节假日等无公布日期使用前值填充，并用 `is_filled` 标记
+
+### 中国国债收益率
+
+- 数据源：`akshare.bond_china_yield()`
+- 指标：中债国债收益率曲线 3 月、6 月、1 年、3 年、5 年、7 年、10 年、30 年收益率，以及 10 年-1 年期限利差
+- 默认区间：2010 年 1 月 1 日至最新可用日期
+- 输出：`china_treasury_yield_daily.csv`
+- 日度缺口处理：生成连续自然日序列，周末和节假日等无公布日期使用前值填充，并用 `is_filled` 标记
+
 ## 运行
 
 ```powershell
@@ -106,6 +138,10 @@ python fetch_lpr.py
 python fetch_usd_cny_mid.py
 python fetch_fixed_asset_investment_yoy.py
 python fetch_retail_sales_yoy.py
+python fetch_import_and_trade_balance.py
+python fetch_fiscal_revenue_expenditure_yoy.py
+python fetch_shibor.py
+python fetch_china_treasury_yield.py
 ```
 
 默认输出：
@@ -125,6 +161,11 @@ C:\Users\hyf\Desktop\宏观数据爬取\lpr_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\usd_cny_mid_daily.csv
 C:\Users\hyf\Desktop\宏观数据爬取\fixed_asset_investment_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\retail_sales_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\import_amount_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\trade_balance_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\fiscal_revenue_expenditure_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\shibor_daily.csv
+C:\Users\hyf\Desktop\宏观数据爬取\china_treasury_yield_daily.csv
 ```
 
 可指定起始月份和输出路径：
