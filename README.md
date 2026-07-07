@@ -73,6 +73,22 @@
 - 默认区间：2019 年首个公布日至最新公布日期
 - 日度缺口处理：生成连续自然日序列，周末和节假日等无公布日期使用前值填充，并用 `is_filled` 标记
 
+### 固定资产投资同比
+
+- 数据源：`akshare.macro_china_gdzctz()`
+- 指标：固定资产投资自年初累计值、累计同比；累计同比由同一月份的上一年累计值计算得到
+- 完整区间：2009 年 2 月至最新月份
+- 输出：`fixed_asset_investment_yoy_monthly.csv`
+- 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
+
+### 社会消费品零售总额同比
+
+- 数据源：`akshare.macro_china_consumer_goods_retail()`
+- 指标：社会消费品零售总额当月值、当月同比、累计值、累计同比
+- 完整区间：2008 年 1 月至最新月份
+- 输出：`retail_sales_yoy_monthly.csv`
+- 月度缺口处理：缺失月份使用前值填充，并用 `is_filled` 标记
+
 ## 运行
 
 ```powershell
@@ -88,6 +104,8 @@ python fetch_real_estate_indicators.py
 python fetch_export_yoy.py
 python fetch_lpr.py
 python fetch_usd_cny_mid.py
+python fetch_fixed_asset_investment_yoy.py
+python fetch_retail_sales_yoy.py
 ```
 
 默认输出：
@@ -105,6 +123,8 @@ C:\Users\hyf\Desktop\宏观数据爬取\commercial_housing_sales_area_yoy_monthl
 C:\Users\hyf\Desktop\宏观数据爬取\export_amount_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\lpr_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\usd_cny_mid_daily.csv
+C:\Users\hyf\Desktop\宏观数据爬取\fixed_asset_investment_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\retail_sales_yoy_monthly.csv
 ```
 
 可指定起始月份和输出路径：
