@@ -130,6 +130,13 @@
 - 发电量：Trading Economics 公共图表；输出 `electricity_output_yoy_monthly.csv`
 - 衍生因子：同比 3 个月变化、3 个月均值、是否 3 个月改善、是否由负转正；RRR 另含过去 30/60/90 天是否降准、1 年变化等政策状态字段
 
+### 经济日历
+
+- 数据源：AKShare 金十类公布日接口、已有 CSV 中的 `publish_date`/`trade_date`/`release_date` 字段，以及 RRR 公布日
+- 输出：`release_calendar.csv`
+- 字段：`indicator`、`frequency`、`period`、`period_start`、`period_end`、`release_date`、`available_date`、`date_quality`、`source`、`notes`
+- `date_quality=actual` 表示真实公布日；`date_quality=missing` 表示当前稳定来源未提供公布日，仅保留所属期用于未来函数审计
+
 ## 运行
 
 ```powershell
@@ -152,6 +159,7 @@ python fetch_fiscal_revenue_expenditure_yoy.py
 python fetch_shibor.py
 python fetch_china_treasury_yield.py
 python fetch_macro_factor_extensions.py
+python fetch_release_calendar.py
 ```
 
 默认输出：
@@ -181,6 +189,7 @@ C:\Users\hyf\Desktop\宏观数据爬取\surveyed_unemployment_rate_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\reserve_requirement_ratio.csv
 C:\Users\hyf\Desktop\宏观数据爬取\electricity_consumption_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\electricity_output_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\release_calendar.csv
 ```
 
 可指定起始月份和输出路径：
