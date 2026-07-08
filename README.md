@@ -121,6 +121,15 @@
 - 输出：`china_treasury_yield_daily.csv`
 - 日度缺口处理：生成连续自然日序列，周末和节假日等无公布日期使用前值填充，并用 `is_filled` 标记
 
+### 盈利、就业、政策与电力因子
+
+- 工业企业利润：Trading Economics 公共图表；输出 `industrial_enterprise_profit_yoy_monthly.csv`
+- 城镇调查失业率：Trading Economics 公共图表；输出 `surveyed_unemployment_rate_monthly.csv`
+- 存款准备金率：`akshare.macro_china_reserve_requirement_ratio()`；输出 `reserve_requirement_ratio.csv`
+- 全社会用电量：`akshare.macro_china_society_electricity()`；输出 `electricity_consumption_yoy_monthly.csv`
+- 发电量：Trading Economics 公共图表；输出 `electricity_output_yoy_monthly.csv`
+- 衍生因子：同比 3 个月变化、3 个月均值、是否 3 个月改善、是否由负转正；RRR 另含过去 30/60/90 天是否降准、1 年变化等政策状态字段
+
 ## 运行
 
 ```powershell
@@ -142,6 +151,7 @@ python fetch_import_and_trade_balance.py
 python fetch_fiscal_revenue_expenditure_yoy.py
 python fetch_shibor.py
 python fetch_china_treasury_yield.py
+python fetch_macro_factor_extensions.py
 ```
 
 默认输出：
@@ -166,6 +176,11 @@ C:\Users\hyf\Desktop\宏观数据爬取\trade_balance_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\fiscal_revenue_expenditure_yoy_monthly.csv
 C:\Users\hyf\Desktop\宏观数据爬取\shibor_daily.csv
 C:\Users\hyf\Desktop\宏观数据爬取\china_treasury_yield_daily.csv
+C:\Users\hyf\Desktop\宏观数据爬取\industrial_enterprise_profit_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\surveyed_unemployment_rate_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\reserve_requirement_ratio.csv
+C:\Users\hyf\Desktop\宏观数据爬取\electricity_consumption_yoy_monthly.csv
+C:\Users\hyf\Desktop\宏观数据爬取\electricity_output_yoy_monthly.csv
 ```
 
 可指定起始月份和输出路径：
